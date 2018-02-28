@@ -2,6 +2,11 @@ package com.example.olayg.buttonchallenge;
 
 import android.app.Application;
 
+import com.example.olayg.buttonchallenge.data.component.DaggerNetComponent;
+import com.example.olayg.buttonchallenge.data.component.NetComponent;
+import com.example.olayg.buttonchallenge.data.module.AppModule;
+import com.example.olayg.buttonchallenge.data.module.NetModule;
+
 import timber.log.Timber;
 
 /**
@@ -25,6 +30,13 @@ public class App extends Application {
     }
 
     private void setupDagger() {
+        netComponent = DaggerNetComponent.builder()
+                .netModule(new NetModule(""))
+                .appModule(new AppModule(this))
+                .build();
+    }
 
+    public NetComponent getNetComponent() {
+        return netComponent;
     }
 }
