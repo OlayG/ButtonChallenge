@@ -3,40 +3,37 @@ package com.example.olayg.buttonchallenge.view.homescreen;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.olayg.buttonchallenge.App;
-import com.example.olayg.buttonchallenge.Constants;
+import com.example.olayg.buttonchallenge.util.Constants;
 import com.example.olayg.buttonchallenge.R;
+import com.example.olayg.buttonchallenge.adapter.RecyclerItemClickListener;
+import com.example.olayg.buttonchallenge.adapter.UserAdapter;
 import com.example.olayg.buttonchallenge.data.entities.User;
 import com.example.olayg.buttonchallenge.view.base.BaseActivity;
 import com.example.olayg.buttonchallenge.view.createuseractivity.CreateUser;
-import com.example.olayg.buttonchallenge.view.createuseractivity.UserEvent;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hugo.weaving.DebugLog;
 
-public class HomeScreen extends BaseActivity implements HomeScreenContract.View {
+public class HomeScreen extends BaseActivity implements HomeScreenContract.View, RecyclerItemClickListener.OnRecyclerClickListener {
 
     @Inject
     HomeScreenPresenter presenter;
-    @Inject
-    SharedPreferences preferences;
+    @BindView(R.id.rvUsers)
+    RecyclerView rvUsers;
+    private UserAdapter userAdapter;
 
     @DebugLog
     @Override
@@ -46,13 +43,24 @@ public class HomeScreen extends BaseActivity implements HomeScreenContract.View 
         ButterKnife.bind(this);
         activateToolbar(false);
         setupDagger();
+        setupRecyclerView();
+        presenter.getUsers(Constants.CANDIDATE);
     }
 
-    @DebugLog
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().register(this);
+    protected void onResume() {
+        super.onResume();
+        presenter.getUsers(Constants.CANDIDATE);
+    }
+
+    private void setupRecyclerView() {
+        rvUsers.setLayoutManager(new LinearLayoutManager(this));
+        rvUsers.addOnItemTouchListener(new RecyclerItemClickListener(this, rvUsers, this));
+        rvUsers.setLayoutTransition(null);
+        rvUsers.setFocusableInTouchMode(true);
+        userAdapter = new UserAdapter(new ArrayList<User>());
+        userAdapter.hasStableIds();
+        rvUsers.setAdapter(userAdapter);
     }
 
 
@@ -72,14 +80,10 @@ public class HomeScreen extends BaseActivity implements HomeScreenContract.View 
         }
     }
 
+    @DebugLog
     @Override
     public void loadUsers(List<User> users) {
-
-    }
-
-    @Override
-    public void createNewUser(User user) {
-        presenter.postUser(user);
+        userAdapter.loadNewData(users);
     }
 
     @Override
@@ -98,12 +102,13 @@ public class HomeScreen extends BaseActivity implements HomeScreenContract.View 
         errorDialog.show();
     }
 
-    @DebugLog
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNewUserEvent(UserEvent userEvent) {
-        if (userEvent.getUser() != null)
-            createNewUser(userEvent.getUser());
-        else
-            showError(getString(R.string.generic_error_message));
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.olayg.buttonchallenge.view.createuseractivity;
+package com.example.olayg.buttonchallenge;
 
 import com.example.olayg.buttonchallenge.data.entities.User;
 

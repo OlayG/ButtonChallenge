@@ -17,5 +17,4 @@ import retrofit2.Retrofit;
 @Component(modules = {AppModule.class, NetModule.class})
 public interface NetComponent {
     Retrofit retrofit();
-    SharedPreferences preferences();
 }

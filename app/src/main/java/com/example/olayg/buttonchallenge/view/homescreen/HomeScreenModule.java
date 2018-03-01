@@ -1,6 +1,6 @@
 package com.example.olayg.buttonchallenge.view.homescreen;
 
-import com.example.olayg.buttonchallenge.CustomScope;
+import com.example.olayg.buttonchallenge.util.CustomScope;
 
 import dagger.Module;
 import dagger.Provides;

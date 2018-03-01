@@ -1,4 +1,4 @@
-package com.example.olayg.buttonchallenge;
+package com.example.olayg.buttonchallenge.util;
 
 /**
  * Created by olayg on 2/28/2018.

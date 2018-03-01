@@ -41,8 +41,9 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + rootProject.ext.butterknifeVersion
     annotationProcessor 'com.google.dagger:dagger-compiler:' + rootProject.ext.daggerVersion
-    compile 'com.jakewharton.timber:timber:' + rootProject.ext.timberVersion
+    implementation 'com.jakewharton.timber:timber:' + rootProject.ext.timberVersion
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

@@ -1,8 +1,7 @@
 package com.example.olayg.buttonchallenge.view.homescreen;
 
-import com.example.olayg.buttonchallenge.CustomScope;
+import com.example.olayg.buttonchallenge.util.CustomScope;
 import com.example.olayg.buttonchallenge.data.component.NetComponent;
-import com.example.olayg.buttonchallenge.data.module.NetModule;
 
 import dagger.Component;
 

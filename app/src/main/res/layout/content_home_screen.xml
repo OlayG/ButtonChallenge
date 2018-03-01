@@ -9,9 +9,12 @@
     tools:showIn="@layout/activity_home_screen">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Hello World!"
+        android:animateLayoutChanges="true"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
