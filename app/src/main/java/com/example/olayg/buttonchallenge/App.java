@@ -31,7 +31,7 @@ public class App extends Application {
 
     private void setupDagger() {
         netComponent = DaggerNetComponent.builder()
-                .netModule(new NetModule(""))
+                .netModule(new NetModule(Constants.BASE_URL))
                 .appModule(new AppModule(this))
                 .build();
     }

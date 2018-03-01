@@ -8,6 +8,7 @@ import com.example.olayg.buttonchallenge.data.module.NetModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import retrofit2.Retrofit;
 
 /**
  * Created by olayg on 2/28/2018.
@@ -15,5 +16,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class})
 public interface NetComponent {
+    Retrofit retrofit();
     SharedPreferences preferences();
 }

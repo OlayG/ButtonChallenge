@@ -9,20 +9,26 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.olayg.buttonchallenge.R;
 
+import org.greenrobot.eventbus.EventBus;
+
+import hugo.weaving.DebugLog;
+
 /**
  * Created by olayg on 2/28/2018.
  */
 
 public abstract class BaseActivity extends AppCompatActivity{
 
+    @DebugLog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        EventBus.getDefault().register(this);
     }
 
     public void activateToolbar(boolean enableHome) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if (actionBar == null) {
             Toolbar toolbar = findViewById(R.id.toolbar);
 
             if (toolbar != null) {
