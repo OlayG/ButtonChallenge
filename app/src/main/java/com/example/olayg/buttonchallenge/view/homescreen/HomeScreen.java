@@ -71,10 +71,10 @@ public class HomeScreen extends BaseActivity implements HomeScreenContract.View,
                 .build().inject(this);
     }
 
-    @OnClick({R.id.fab})
+    @OnClick({R.id.fabAddUser})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fab:
+            case R.id.fabAddUser:
                 startActivity(new Intent(this, CreateUser.class));
                 break;
         }

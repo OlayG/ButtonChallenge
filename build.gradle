@@ -46,4 +46,5 @@ ext {
     eventbusVersion = '3.1.1'
     gsonVersion = '2.8.2'
     mockitoVersion = '2.+'
+    mockwebserverVersion = '3.10.0'
 }

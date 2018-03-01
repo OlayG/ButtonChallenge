@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.olayg.buttonchallenge.data.remote.RemoteDataSource;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +13,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -51,5 +51,11 @@ public class NetModule {
                 .baseUrl(baseUrl)
                 .build();
         return retrofit;
+    }
+
+    @Provides
+    @Singleton
+    RemoteDataSource provideRemoteDataSource(Retrofit retrofit){
+        return new RemoteDataSource(retrofit);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.olayg.buttonchallenge.view.homescreen;
 
-import com.example.olayg.buttonchallenge.data.remote.FakeButtonService;
 import com.example.olayg.buttonchallenge.data.entities.User;
+import com.example.olayg.buttonchallenge.data.remote.RemoteDataSource;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
 import timber.log.Timber;
 
 /**
@@ -22,17 +21,17 @@ import timber.log.Timber;
 public class HomeScreenPresenter implements HomeScreenContract.Presenter {
 
     private HomeScreenContract.View view;
-    private Retrofit retrofit;
+    private RemoteDataSource remoteDataSource;
 
     @Inject
-    public HomeScreenPresenter(HomeScreenContract.View view, Retrofit retrofit) {
+    public HomeScreenPresenter(HomeScreenContract.View view, RemoteDataSource remoteDataSource) {
         this.view = view;
-        this.retrofit = retrofit;
+        this.remoteDataSource = remoteDataSource;
     }
 
     @Override
     public void getUsers(String candidate) {
-        retrofit.create(FakeButtonService.class).getUserList(candidate)
+        remoteDataSource.getUserList(candidate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -46,7 +45,7 @@ public class HomeScreenPresenter implements HomeScreenContract.Presenter {
                     @DebugLog
                     @Override
                     public void onNext(List<User> users) {
-                            Timber.d("User 1 is: " + users.size());
+                        Timber.d("User 1 is: " + users.size());
                         view.loadUsers(users);
                     }
 
